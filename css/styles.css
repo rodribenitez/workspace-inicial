@@ -188,3 +188,39 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
+  text-align: center;
+}
+
+.form input{
+  margin: 10px auto;
+  width: 60%;
+}
+
+.btn{
+  width: 30%;
+  margin: auto;
+}
+
+.titulo, .sub-titulo{
+  padding: 15px;
+  text-align: center;
+}
+
+
+/********** ERROR **********/
+.input-error{
+  display: none;
+}
+.warning-red{
+  display: block;
+  color: red;
+}
+.error{
+  border: 2px solid red;
+}
