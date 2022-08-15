@@ -14,7 +14,8 @@ if ( usuario === ""){
         document.getElementById("contraseña").classList.toggle("error");
         document.getElementById("input-error-pass").classList.toggle("warning-red");
     } else {
-        localStorage.setItem('usar',usuario);
+        localStorage.setItem('user',usuario)
+        localStorage.setItem('pass',contraseña);
         location.href = 'index.html';
     }
 }    

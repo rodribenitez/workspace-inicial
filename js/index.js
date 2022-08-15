@@ -11,4 +11,11 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem("catID", 103);
         window.location = "products.html"
     });
+
+    document.getElementById("cerrar").addEventListener('click', () =>{
+        localStorage.clear();
+        location.href = "login.html";
+    });
+
+
 });
