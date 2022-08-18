@@ -4,20 +4,20 @@ let categoriesArray = [];
 function showCategoriesList(array){
     let htmlContentToAppend = "";
     for(let i = 0; i < array.products.length; i++){ 
-        let category = array.products[i];
+        let list = array.products[i];
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-3">
-                    <img src="` + category.image + `" alt="product image" class="img-thumbnail">
+                    <img src="` + list.image + `" alt="product image" class="img-thumbnail">
                 </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
-                        <h4>`+ category.name + ` - ` + category.currency + ` `+ category.cost +`</h4> 
-                        <p> `+ category.description +`</p> 
+                        <h4>`+ list.name + ` - ` + list.currency + ` `+ list.cost +`</h4> 
+                        <p> `+ list.description +`</p> 
                         </div>
-                        <small class="text-muted">` + category.soldCount + ` vendidos</small> 
+                        <small class="text-muted">` + list.soldCount + ` vendidos</small> 
                     </div>
 
                 </div>
