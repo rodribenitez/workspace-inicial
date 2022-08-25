@@ -2,16 +2,16 @@
 
 function login (){
 
-let usuario = document.getElementById('username');
-let contraseña = document.getElementById('contraseña');    
+let usuario = document.getElementById('username').value;
+let contraseña = document.getElementById('contraseña').value;    
 
 
-if ( usuario.value === ""){
+if ( usuario === ""){
 
     usuario.classList.add('is-invalid');
     document.getElementById("input-error-user").classList.toggle("warning-red");
 } else {
-    if (contraseña.value === ""){
+    if (contraseña === ""){
         contraseña.classList.add("is-invalid");
         document.getElementById("input-error-pass").classList.toggle("warning-red");
     } else {
