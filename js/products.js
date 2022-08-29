@@ -92,9 +92,9 @@ function ordenarMayor(array) {
 
   function ordenarPorRelevancia(array) { 
         array.products.sort((a, b) => {
-            if (a.soldCount < b.soldCount){
+            if (a.soldCount > b.soldCount){
                 return -1
-            }else if(a.soldCount > b.soldCount) {
+            }else if(a.soldCount < b.soldCount) {
                 return 1
             }else {
                 return 0;
