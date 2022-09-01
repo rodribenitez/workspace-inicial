@@ -24,14 +24,19 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html">Inicio</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item category">
             <a class="nav-link" href="categories.html">Categorías</a>
+            <ul class="submenu" id="sub_menu">
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login.html" id="cerrar"></a>
+            <a class="nav-link" href="my-profile.html" id="perfil"></a>
+            <ul class="submenu">
+              <li> <a class="nav-link" href="login.html" id="cerrar"></a></li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -39,7 +44,7 @@
   </nav>
   <main class="pb-5 container">
     <h1 class="titulo"> Productos</h1>
-    <h3 class="sub-titulo"> Veras aqui todos los productos de la categoria Autos</h3>
+    <h3 class="sub-titulo"> Veras aqui todos los productos de la categoria <span id="nameProduct"></span></h3>
     <div class="container">
       <div class="row">
         <div class="col text-end">

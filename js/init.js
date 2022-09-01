@@ -49,5 +49,23 @@ document.addEventListener("DOMContentLoaded", () =>{
     location.href = "login.html"
   }
 
-  document.getElementById("cerrar").innerHTML = usuario;
+  const sub_menu = document.querySelector("#sub_menu");
+
+  sub_menu.innerHTML = ` <li> <a class="nav-link" href="#" id="autos">Autos</a></li>
+  <li> <a class="nav-link" href="#" id="juguetes">Juguetes</a></li>
+  <li> <a class="nav-link" href="#" id="muebles">Muebles</a></li>
+  <li> <a class="nav-link" href="#" id="2">Herramientas</a></li>
+  <li> <a class="nav-link" href="#" id="2">Computadoras</a></li>
+  <li> <a class="nav-link" href="#" id="2">Vestimenta</a></li>
+  <li> <a class="nav-link" href="#" id="2">Electrodomestico</a></li>
+  <li> <a class="nav-link" href="#" id="2">Deporte</a></li>
+  <li> <a class="nav-link" href="#" id="2">Celulares</a></li>
+  `
+
+
+
+
+  document.getElementById("perfil").innerHTML = usuario;
+  
+  document.getElementById("cerrar").innerText = "Cerrar";
 })

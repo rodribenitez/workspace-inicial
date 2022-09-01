@@ -212,6 +212,23 @@ a.custom-card:hover {
   text-align: center;
 }
 
+.submenu{
+  display: none;
+  position: fixed;
+  background-color: #212529;
+  color: white;
+  padding: 2px;
+}
+
+li:hover .submenu {
+  display: block;
+}
+
+nav  ul  li  a:hover{
+  transform: scale(1.1);
+  background-color: #212529;
+  font-weight: 600;
+}
 
 /********** ERROR **********/
 .input-error{

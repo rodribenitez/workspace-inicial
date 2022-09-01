@@ -1,3 +1,9 @@
+function setProductID(id) {
+    localStorage.setItem("productoID", id);
+    window.location = "product-info.html"
+}
+
+
 //array donde se cargarán los datos recibidos:
 let categoriesArray = [];
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
@@ -6,7 +12,7 @@ function showCategoriesList(array){
     for(let i = 0; i < array.products.length; i++){ 
         let list = array.products[i];
         htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action">
+        <div onclick =setProductID(${list.id}) class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-3">
                     <img src="` + list.image + `" alt="product image" class="img-thumbnail">
@@ -118,11 +124,16 @@ document.addEventListener("DOMContentLoaded", function(e){
         {
             categoriesArray = resultObj.data;
             showCategoriesList(categoriesArray);
+
+            const nombreProducto = document.getElementById("nameProduct");
+            console.log(categoriesArray);
+            nombreProducto.innerText = categoriesArray.catName;
+
         }
     });
     
     document.getElementById("sortAsc").addEventListener("click", function(){
-        // ordenar(ORDER_ASC_BY_COUNT);
+
         ordenarMayor(categoriesArray)
     });
 
