@@ -16,6 +16,4 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.clear();
         location.href = "login.html";
     });
-
-
 });

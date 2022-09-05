@@ -40,7 +40,9 @@ let getJSONData = function(url){
     });
 }
 
-document.addEventListener("DOMContentLoaded", () =>{
+
+
+document.addEventListener("DOMContentLoaded", function() {
 
   let usuario = localStorage.getItem("user");
   let contraseña = localStorage.getItem("pass");
@@ -51,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 
   const sub_menu = document.querySelector("#sub_menu");
 
-  sub_menu.innerHTML = ` <li> <a class="nav-link" href="#" id="autos">Autos</a></li>
-  <li> <a class="nav-link" href="#" id="juguetes">Juguetes</a></li>
-  <li> <a class="nav-link" href="#" id="muebles">Muebles</a></li>
+  sub_menu.innerHTML = ` <li> <a class="nav-link" href="products.html" id="autos">Autos</a></li>
+  <li> <a class="nav-link" href="products.html" id="juguetes">Juguetes</a></li>
+  <li> <a class="nav-link" href="" id="muebles">Muebles</a></li>
   <li> <a class="nav-link" href="#" id="2">Herramientas</a></li>
   <li> <a class="nav-link" href="#" id="2">Computadoras</a></li>
   <li> <a class="nav-link" href="#" id="2">Vestimenta</a></li>
@@ -61,9 +63,7 @@ document.addEventListener("DOMContentLoaded", () =>{
   <li> <a class="nav-link" href="#" id="2">Deporte</a></li>
   <li> <a class="nav-link" href="#" id="2">Celulares</a></li>
   `
-
-
-
+  
 
   document.getElementById("perfil").innerHTML = usuario;
   

@@ -7,12 +7,13 @@ function setProductID(id) {
 //array donde se cargarán los datos recibidos:
 let categoriesArray = [];
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
+
 function showCategoriesList(array){
     let htmlContentToAppend = "";
-    for(let i = 0; i < array.products.length; i++){ 
-        let list = array.products[i];
+    for(let i = 0; i < array.length; i++){
+        let list = array[i];
         htmlContentToAppend += `
-        <div onclick =setProductID(${list.id}) class="list-group-item list-group-item-action">
+        <div onclick =setProductID(${list.id}) class="list-group-item list-group-item-action cursor-active product-hover">
             <div class="row">
                 <div class="col-3">
                     <img src="` + list.image + `" alt="product image" class="img-thumbnail">
@@ -20,10 +21,10 @@ function showCategoriesList(array){
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
-                        <h4>`+ list.name + ` - ` + list.currency + ` `+ list.cost +`</h4> 
-                        <p> `+ list.description +`</p> 
+                        <h4>`+ list.name + ` - ` + list.currency + ` `+ list.cost +`</h4>
+                        <p> `+ list.description +`</p>
                         </div>
-                        <small class="text-muted">` + list.soldCount + ` vendidos</small> 
+                        <small class="text-muted">` + list.soldCount + ` vendidos</small>
                     </div>
 
                 </div>
@@ -33,44 +34,55 @@ function showCategoriesList(array){
         document.getElementById("container-products").innerHTML = htmlContentToAppend;
     }
 }
+
+//BUSCAR
+function buscar(e) {
+    let divFiltrado = document.getElementById("filtrado");
+    let produc = categoriesArray.products.filter(a => a.name.toUpperCase().includes(e) || a.description.toUpperCase().includes(e));
+
+    divFiltrado.innerHTML = "";
+    produc.forEach(list => {
+        divFiltrado.innerHTML += `<div onclick = setProductID(${list.id}) class="list-group-item list-group-item-action invertir">
+        <div >
+            <div class="col-3">
+                <img src="` + list.image + `" alt="product image" class="img-thumbnail">
+            </div>
+            <h4>`+ list.name + ` - ` + list.currency + ` `+ list.cost +`</h4>
+
+            <div class="col">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="mb-1">
+                    <p> `+ list.description +`</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+    if( e === ""){
+        divFiltrado.innerHTML = ""
+    }
+    });
+
+}
+
+
 //FILTRAR
 function filtrar() {
     let min = parseInt(document.getElementById("rangeFilterCountMin").value);
     let max = parseInt(document.getElementById("rangeFilterCountMax").value);
-    
+
     let filtrado = categoriesArray.products.filter( producto => producto.cost >= min && producto.cost <= max);
-    mostrar(filtrado);
+    showCategoriesList(filtrado);
 }
 
-function mostrar(categorias) {
-    let productos = "";
-    for ( let produ of categorias) {
-        productos += `
-        <div class="list-group-item list-group-item-action">
-            <div class="row">
-                <div class="col-3">
-                    <img src="` + produ.image + `" alt="product image" class="img-thumbnail">
-                </div>
-                <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="mb-1">
-                        <h4>`+ produ.name + ` - ` + produ.currency + ` `+ produ.cost +`</h4> 
-                        <p> `+ produ.description +`</p> 
-                        </div>
-                        <small class="text-muted">` + produ.soldCount + ` vendidos</small> 
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        `
-    }
-    document.getElementById("container-products").innerHTML = productos;
+/* Limpiar */
+function limpiarFiltrado(arry) {
+    showCategoriesList(arry.products);
 }
-
 
 //ORDENAR
-function ordenarMayor(array) { 
+function ordenarMayor(array) {
         array.products.sort((a, b) => {
             if (a.cost < b.cost){
                 return -1
@@ -80,8 +92,8 @@ function ordenarMayor(array) {
                 return 0;
             }
         }) ;
-        showCategoriesList(array);
-    } 
+        showCategoriesList(array.products);
+    }
 
   function ordenarMenor(array){
         array.products.sort((a, b) => {
@@ -93,10 +105,10 @@ function ordenarMayor(array) {
                 return 0;
             }
         }) ;
-        showCategoriesList(array);
+        showCategoriesList(array.products);
   }
 
-  function ordenarPorRelevancia(array) { 
+  function ordenarPorRelevancia(array) {
         array.products.sort((a, b) => {
             if (a.soldCount > b.soldCount){
                 return -1
@@ -106,9 +118,9 @@ function ordenarMayor(array) {
                 return 0;
             }
         }) ;
-        showCategoriesList(array);
-    } 
-/* 
+        showCategoriesList(array.products);
+    }
+/*
 EJECUCIÓN:
 
 -Al cargar la página se llama a getJSONData() pasándole por parámetro la dirección para obtener el listado.
@@ -123,14 +135,20 @@ document.addEventListener("DOMContentLoaded", function(e){
         if (resultObj.status === "ok")
         {
             categoriesArray = resultObj.data;
-            showCategoriesList(categoriesArray);
+            let arrlist = categoriesArray.products;
+            showCategoriesList(arrlist);
 
             const nombreProducto = document.getElementById("nameProduct");
-            console.log(categoriesArray);
             nombreProducto.innerText = categoriesArray.catName;
 
         }
     });
+
+    const buscador = document.getElementById("buscar")
+    buscador.addEventListener("input" , () =>{
+        let texto = buscador.value.toUpperCase();
+            buscar(texto);
+    } )
     
     document.getElementById("sortAsc").addEventListener("click", function(){
 
@@ -145,9 +163,13 @@ document.addEventListener("DOMContentLoaded", function(e){
         ordenarPorRelevancia(categoriesArray)
     });
 
+
+    document.getElementById("clearRangeFilter").addEventListener("click", function () {
+        limpiarFiltrado(categoriesArray);
+    })
     document.getElementById("rangeFilterCount").addEventListener("click", () =>{
         filtrar();
     });
-    mostrar(categoriesArray);
+    showCategoriesList(categoriesArray);
 });
 
