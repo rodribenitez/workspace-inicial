@@ -42,10 +42,24 @@
       </div>
     </div>
   </nav>
-  <main>
+  <main class="pb-5 container mt-3">
     <div id="container-product-info">
-      
+          
     </div>
+    <h3> Comentar</h3>
+    <p> Tu opinion:</p>
+    <textarea name="nameComentario" id="textComentario" cols="30" rows="3" placeholder = "Agrega tu comentario..."></textarea>
+  <div class = "d-flex w-50">
+      <h6 class="mx-2"> Tu puntuacion</h6>
+          <select class="ml-1" id = "valoraciones">
+              <option class="opciones" value="1">1</option>
+              <option class="opciones" value="2">2</option>
+              <option class="opciones" value="3">3</option>
+              <option class="opciones" value="4">4</option>
+              <option class="opciones" value="5">5</option>
+            </select>
+      </div>
+    <button class="btn btn-primary mt-3" id="envio_comentario">Enviar</button>
   </main>
   <footer class="text-muted">
     <div class="container">

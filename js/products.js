@@ -48,7 +48,6 @@ function buscar(e) {
                 <img src="` + list.image + `" alt="product image" class="img-thumbnail">
             </div>
             <h4>`+ list.name + ` - ` + list.currency + ` `+ list.cost +`</h4>
-
             <div class="col">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="mb-1">
@@ -63,7 +62,6 @@ function buscar(e) {
         divFiltrado.innerHTML = ""
     }
     });
-
 }
 
 
@@ -166,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     document.getElementById("clearRangeFilter").addEventListener("click", function () {
         limpiarFiltrado(categoriesArray);
-    })
+    });
     document.getElementById("rangeFilterCount").addEventListener("click", () =>{
         filtrar();
     });
