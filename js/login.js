@@ -22,7 +22,7 @@ if ( usuario === ""){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    document.getElementById('inicio').addEventListener('click',() =>{
+    inicio.addEventListener('click',() =>{
         login();
     })
 })

@@ -74,7 +74,7 @@ function filtrar() {
     showCategoriesList(filtrado);
 }
 
-/* Limpiar */
+// LIMPIAR
 function limpiarFiltrado(arry) {
     showCategoriesList(arry.products);
 }
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         }
     });
 
-    const buscador = document.getElementById("buscar")
+    const buscador = document.getElementById("buscar");
     buscador.addEventListener("input" , () =>{
         let texto = buscador.value.toUpperCase();
             buscar(texto);

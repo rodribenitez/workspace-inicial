@@ -3,7 +3,10 @@ let categoriesArray = [];
 function showProductsInfo(array){
     let htmlContentToAppend = "";
         htmlContentToAppend += `
-        <h1 class"mb-3 mt-5"> `+ array.name + ` </h1>
+        <div class = "d-flex justify-content-between">
+            <h1 class"mb-3 mt-5"> `+ array.name + ` </h1>
+            <button type ="button" class="w-20 p-3 btn-success"> Comprar </button>
+        </div>
         <hr>
         <div class "row list-group-item p-1">
             <div class="row">
@@ -59,68 +62,30 @@ function showProductsInfo(array){
 
 
 function getComment(arrayComent){
-    console.log(arrayComent);
     let comentAppend = "";
          for (let i = 0; i < arrayComent.length; i++) {
             comentAppend += ` <div class = " list-group-item w-50">
-            <div class = "d-flex ">
-            <h6> <span> `+ arrayComent[i].user+` </span> - ` + arrayComent[i].dateTime+ ` - `+ estrellas(arrayComent[i].score)+` </h6>    
+            <div class = "d-flex">
+            <p> <h6 class = "fw-bold"> `+ arrayComent[i].user+` </h6> - ` + arrayComent[i].dateTime+ ` - `+ estrellas(arrayComent[i].score)+` </p>    
             </div>` + arrayComent[i].description+` </div>
                 `
                 document.getElementById("comentarios").innerHTML = comentAppend;
         } 
 }
 
-
-function estrellas(valor) {
-    console.log(valor);
+function estrellas (valor){
     stars = "";
-    if (valor == 5) {
-        stars +=`<i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>`    
-    }
-    if (valor == 4) {
-        stars +=`<i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star"></i>
-        `
+    for (let i = 1; i <= 5; i++){
+        if (i <= valor) {
+            stars += '<i class="fas fa-star checked" ></i>';
+        } else{
+            stars += '<i class="far fa-star checked" ></i>';
         }
-    if (valor == 3) {
-    stars +=`<i class = "fa fa-star checked"></i>
-    <i class = "fa fa-star checked"></i>
-    <i class = "fa fa-star checked"></i>
-    <i class = "fa fa-star"></i>
-    <i class = "fa fa-star"></i>
-    `
     }
-    if (valor == 2) {
-        stars +=`<i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star checked"></i>
-        <i class = "fa fa-star"></i>
-        <i class = "fa fa-star"></i>
-        <i class = "fa fa-star ></i>
-        `
-        }
-
-    if (valor == 1) {
-            stars +=`<i class = "fa fa-star checked"></i>
-            <i class = "fa fa-star "></i>
-            <i class = "fa fa-star "></i>
-            <i class = "fa fa-star "></i>
-            <i class = "fa fa-star "></i>
-            `
-            }
-    
     return stars
 }
 
-
-function enviarComentario(text,usuario,valor) {   
+function fechaActual() {
     let fechaActual = new Date();
     let hora = fechaActual.getHours() ;
     let minutos = fechaActual.getMinutes();
@@ -129,39 +94,59 @@ function enviarComentario(text,usuario,valor) {
     let mes = fechaActual.getMonth() + 1;
     let anio = fechaActual.getFullYear();
 
+    if(dia < 10){
+        dia = "0"+ dia;
+    }
+
+    if(mes < 10){
+        mes = "0"+ mes;
+    }
+
+    if(hora < 10){
+        hora = "0"+ hora;
+    }
+    if(minutos < 10){
+        minutos = "0"+ minutos;
+    }
+    if(segundos < 10){
+        segundos = "0"+ segundos;
+    }
+
+    return anio+"-"+mes+"-"+dia +" "+ hora+":"+minutos +":"+segundos
+}
+
+
+function enviarComentario(text,usuario,valor) {   
+    
     datosComentario = {
-        product : "",
+        product : 0,
         score : "",
         description : "",
         user : "",
         dateTime: "",
     }
-    datosComentario.product = JSON.parse(localStorage.getItem("productID"));
+    datosComentario.product = localStorage.getItem("productoID") ;
     datosComentario.score = valor;
     datosComentario.description = text;
     datosComentario.user = usuario;
-    datosComentario.dateTime = anio+"-"+mes+"-"+dia +" "+ hora+":"+minutos +":"+segundos;
+    datosComentario.dateTime = fechaActual();
     
 
         let comentAppend = "";
             comentAppend += ` <div class = " list-group-item w-50">
             <div class = "d-flex ">
-            <h6> <span> `+ datosComentario.user+ ` </span> - `+datosComentario.dateTime +` - `+ datosComentario.score +`</h6>    
+            <p> <h6 class = "fw-bold"> `+ datosComentario.user +` </h6> - ` + datosComentario.dateTime +` - `+ datosComentario.score +`</p>    
           </div>` + datosComentario.description +` </div>
             `
             document.getElementById("comentarios-usuario").innerHTML += comentAppend;
-           
     }
-
-
 
 document.addEventListener("DOMContentLoaded", function(e){
 
 
     const textoComentario = document.querySelector("#textComentario");
     const btnEnviarComentario = document.getElementById("envio_comentario");
-
-
+    
     let id = localStorage.getItem("productoID");
     getJSONData(PRODUCT_INFO_URL + id +".json").then(function(resultObj){
         if (resultObj.status === "ok"){
@@ -181,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     //**Enviar Comentario**/
 
     btnEnviarComentario.addEventListener('click', ()=>{
-        const opciones = document.getElementById("valoraciones").value;  
+        const opciones = document.getElementById("valoraciones").value;
         let usuario = localStorage.getItem("user");
         enviarComentario(textoComentario.value,usuario,estrellas(opciones));
         textoComentario.value = ""; 
