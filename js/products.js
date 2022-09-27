@@ -13,7 +13,7 @@ function showCategoriesList(array){
     for(let i = 0; i < array.length; i++){
         let list = array[i];
         htmlContentToAppend += `
-        <div onclick =setProductID(${list.id}) class="list-group-item list-group-item-action cursor-active product-hover">
+        <div onclick =setProductID(${list.id}) class="list-group-item list-group-item-action cursor-active product-hover divDark">
             <div class="row">
                 <div class="col-3">
                     <img src="` + list.image + `" alt="product image" class="img-thumbnail">
@@ -127,6 +127,8 @@ EJECUCIÓN:
 
 */
 
+
+
 document.addEventListener("DOMContentLoaded", function(e){
     let id = localStorage.getItem("catID");
     getJSONData(PRODUCTS_URL + id +".json").then(function(resultObj){
@@ -141,6 +143,8 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         }
     });
+
+
 
     const buscador = document.getElementById("buscar");
     buscador.addEventListener("input" , () =>{

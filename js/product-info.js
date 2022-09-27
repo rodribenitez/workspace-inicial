@@ -1,4 +1,9 @@
 let categoriesArray = [];
+let userComent = JSON.parse(localStorage.getItem("newComent"));
+function setProductID(id) {
+    localStorage.setItem("productoID", id);
+    window.location = "product-info.html"
+}
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
 function showProductsInfo(array){
     let htmlContentToAppend = "";
@@ -19,58 +24,84 @@ function showProductsInfo(array){
             <h3> Cantidad de vendidos : </h3>
             <p> ` + array.soldCount + ` </p>
         </div>
-            <div class = "row justify-content-md-center mb-5 mt-5 ">
+            <div class = "row justify-content-md-center mb-4 mt-4 ">
             <h3 class = "mb-2"> Imagenes ilustrativas :  </h3>
                 <div class="row">
-                <div class ="col-3">
-                    <img src="` + array.images[0] + `" alt="product image" class="img-thumbnail">
-                </div>
-                <div class = "col">
-                    <img src="` + array.images[1] + `" alt="product image" class="img-thumbnail">               
-                </div>
-                <div class = "col">
-                    <img src="` + array.images[2] + `" alt="product image" class="img-thumbnail">
-                </div>
-                <div class = "col">
-                    <img src="` + array.images[3] + `" alt="product image" class="img-thumbnail">
-                </div>
-                </div>
+                    <div class = "d-flex">
+                    `+ mostrarImagenes(array.images) + `
+                    </div>             
             </div>
-        <div class"mb-5 mt-3 ">
+        <div class"mb-2 mt-2">
                 <h3>Comentarios: </h3>
                 <div id= "comentarios">
                 </div>
-                <div id ="comentarios-usuario"></div>
+                <div class = "flex-column ">
+                    <h3 class="mt-3"> Comentar</h3>
+                    <p> Tu opinion:</p>
+                    <textarea name="nameComentario" id="textComentario" cols="30" rows="3" placeholder = "Agrega tu comentario..."></textarea>
+                    </div>
+            <div class =" d-flex">
+                <h6 class="mx-2"> Tu puntuacion</h6>
+                    <select class="ml-1" id = "valoraciones">
+                        <option class="opciones" value="1">1</option>
+                        <option class="opciones" value="2">2</option>
+                        <option class="opciones" value="3">3</option>
+                        <option class="opciones" value="4">4</option>
+                        <option class="opciones" value="5">5</option>
+                </select>
                 </div>
+                <div class="w-50 flex-row">
+                    <button onclick = enviarComentario() class="btn btn-primary w-auto" id="envioComentario"> Enviar </button>
+                </div>
+
+                <hr>
+    <h3> Productos relacionados</h3>
+        <div class = "d-flex w-50">
+        <div onclick =setProductID(${array.relatedProducts[0].id})  class="d-flex w-100 justify-content-between m-2">
+            <div class="mb-1">
+                <img src="` + array.relatedProducts[0].image + `" alt="product image" class="img-thumbnail">
+                <h4>`+ array.relatedProducts[0].name +`</h4> 
+            </div>
+        </div>
+    <div onclick =setProductID(${array.relatedProducts[1].id}) class="d-flex w-100 justify-content-between m-2">
+        <div class="mb-1">
+        <img src="` + array.relatedProducts[1].image + `" alt="product image" class="img-thumbnail">
+        <h4>`+ array.relatedProducts[1].name +`</h4> 
+        </div>
+    </div>
+        </div>
+       
         `
         document.getElementById("container-product-info").innerHTML = htmlContentToAppend;
     }
 
 
-    // <div class="d-flex w-100 justify-content-between">
-    //             <div class="mb-1">
-    //             <h4>`+ array.relatedProducts[0].name +`</h4> 
-    //             <img src="` + array.relatedProducts[0].image + `" alt="product image" class="img-thumbnail">
-    //             </div>
-    //         </div>
-    //         <div class="d-flex w-100 justify-content-between">
-    //             <div class="mb-1">
-    //             <h4>`+ array.relatedProducts[1].name +`</h4> 
-    //             <img src="` + array.relatedProducts[1].image + `" alt="product image" class="img-thumbnail">
-    //             </div>
-    //         </div>
+
 
 
 function getComment(arrayComent){
+    let productoID = JSON.parse(localStorage.getItem("productoID"));
     let comentAppend = "";
          for (let i = 0; i < arrayComent.length; i++) {
-            comentAppend += ` <div class = " list-group-item w-50">
-            <div class = "d-flex">
-            <p> <h6 class = "fw-bold"> `+ arrayComent[i].user+` </h6> - ` + arrayComent[i].dateTime+ ` - `+ estrellas(arrayComent[i].score)+` </p>    
-            </div>` + arrayComent[i].description+` </div>
+            if (arrayComent[i].product ===  productoID) {
+                comentAppend += ` <div class = "list-group-item w-50 divDark">
+                <div class = "d-flex">
+                <div id="eliminar"></div>
+                <p> <h6 class = "fw-bold"> `+ arrayComent[i].user+` </h6> - ` + arrayComent[i].dateTime+ ` - `+ estrellas(arrayComent[i].score)+` </p>    
+                </div> <div class = "d-flex justify-content-between">`  + arrayComent[i].description  + mostrarBtn(arrayComent[i].user)+ `</div></div>  
                 `
                 document.getElementById("comentarios").innerHTML = comentAppend;
-        } 
+            }
+        }
+}
+
+function mostrarImagenes(img) {
+    let imagenes = "";
+    for (let i = 0; i < img.length; i++) {
+
+      imagenes += ` <div class="m-2" ><img src="` + img[i] + `" alt="product image" class="img-thumbnail"> </div>`
+    }
+    return imagenes
 }
 
 function estrellas (valor){
@@ -115,8 +146,21 @@ function fechaActual() {
     return anio+"-"+mes+"-"+dia +" "+ hora+":"+minutos +":"+segundos
 }
 
+function mostrarBtn(getUser) {
 
-function enviarComentario(text,usuario,valor) {   
+    let currentUser = localStorage.getItem("user")
+    btn = "";
+
+    if (getUser === currentUser) {
+        btn += `<button type="button" class ="btn btn-danger btn-sm m-0 w-auto"> Eliminar</button>`;
+    }
+    return btn   
+}
+function enviarComentario() {
+
+    const textoComentario = document.getElementById("textComentario");
+    const opciones = document.getElementById("valoraciones").value;
+    let usuario = localStorage.getItem("user");
     
     datosComentario = {
         product : 0,
@@ -125,27 +169,23 @@ function enviarComentario(text,usuario,valor) {
         user : "",
         dateTime: "",
     }
-    datosComentario.product = localStorage.getItem("productoID") ;
-    datosComentario.score = valor;
-    datosComentario.description = text;
-    datosComentario.user = usuario;
-    datosComentario.dateTime = fechaActual();
+    if (textoComentario.value != "") {
+        datosComentario.product = JSON.parse(localStorage.getItem("productoID")) ;
+        datosComentario.score = JSON.parse(opciones);
+        datosComentario.description = textoComentario.value;
+        datosComentario.user = usuario;
+        datosComentario.dateTime = fechaActual();
     
-
-        let comentAppend = "";
-            comentAppend += ` <div class = " list-group-item w-50">
-            <div class = "d-flex ">
-            <p> <h6 class = "fw-bold"> `+ datosComentario.user +` </h6> - ` + datosComentario.dateTime +` - `+ datosComentario.score +`</p>    
-          </div>` + datosComentario.description +` </div>
-            `
-            document.getElementById("comentarios-usuario").innerHTML += comentAppend;
+        userComent.push(datosComentario);
+        localStorage.setItem("newComent", JSON.stringify(userComent));
+        textoComentario.value = "";
+    } else{
+        alert("Ingresa un comentario")
     }
+}
 
 document.addEventListener("DOMContentLoaded", function(e){
-
-
-    const textoComentario = document.querySelector("#textComentario");
-    const btnEnviarComentario = document.getElementById("envio_comentario");
+    const btnEnviarComentario = document.getElementById("envioComentario");
     
     let id = localStorage.getItem("productoID");
     getJSONData(PRODUCT_INFO_URL + id +".json").then(function(resultObj){
@@ -153,22 +193,20 @@ document.addEventListener("DOMContentLoaded", function(e){
             categoriesArray = resultObj.data;
             showProductsInfo(categoriesArray);
             }
-
     });
+    
     getJSONData(PRODUCT_INFO_COMMENTS_URL + id +".json").then(function(resultObj){
         if (resultObj.status === "ok"){
             comentarios = resultObj.data;
+            if(userComent!=null){
+                comentarios = comentarios.concat(userComent);
+            }else{
+                userComent=[];
+            }
             localStorage.setItem("comentariosProductos", JSON.stringify(comentarios));
+            console.log(comentarios);
             getComment(comentarios);
             }
     });
-
-    //**Enviar Comentario**/
-
-    btnEnviarComentario.addEventListener('click', ()=>{
-        const opciones = document.getElementById("valoraciones").value;
-        let usuario = localStorage.getItem("user");
-        enviarComentario(textoComentario.value,usuario,estrellas(opciones));
-        textoComentario.value = ""; 
-    });
+    getComment(comentarios)
 });
