@@ -13,7 +13,7 @@ function showCategoriesList(array){
     for(let i = 0; i < array.length; i++){
         let list = array[i];
         htmlContentToAppend += `
-        <div onclick =setProductID(${list.id}) class="list-group-item list-group-item-action cursor-active product-hover divDark">
+        <div onclick =setProductID(${list.id}) class="list-group-item list-group-item-action cursor-active product-hover">
             <div class="row">
                 <div class="col-3">
                     <img src="` + list.image + `" alt="product image" class="img-thumbnail">

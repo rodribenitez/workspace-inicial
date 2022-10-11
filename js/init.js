@@ -90,6 +90,7 @@ subMenuTema.innerHTML = `<li><button id="btnColor" class=" m-1 switch"><span><i 
 
 
 
+
 const btnSwitch = document.querySelector('#btnColor');
 
 btnSwitch.addEventListener('click', () => {
@@ -98,8 +99,6 @@ btnSwitch.addEventListener('click', () => {
     card.classList.toggle("dark");
   })
 
-
-
   btn_group.forEach(btn =>{
     btn.classList.toggle("darkBtn")
   })
@@ -107,6 +106,7 @@ btnSwitch.addEventListener('click', () => {
   filters.forEach(filt=>{
     filt.classList.toggle("darkBtn")
   })
+
 
   // buscador.classList.toggle("darkBuscar");
 
@@ -135,6 +135,7 @@ if(localStorage.getItem('dark-mode') === 'true'){
   })
 
 
+
   // buscador.classList.toggle("darkBuscar");
 
 
@@ -150,6 +151,8 @@ if(localStorage.getItem('dark-mode') === 'true'){
   filters.forEach(filt=>{
     filt.classList.remove("darkBtn")
   })
+
+
 
 
   // buscador.classList.remove("darkBuscar");
