@@ -26,7 +26,6 @@ function showCategoriesList(array){
                         </div>
                         <small class="text-muted">` + list.soldCount + ` vendidos</small>
                     </div>
-
                 </div>
             </div>
         </div>
