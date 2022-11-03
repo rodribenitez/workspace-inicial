@@ -50,13 +50,50 @@
       </div>
     </div>
   </nav>
+  <div class="container">
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+          <form action="" class="row mt-4">
+            <div class="col">
+              <h1 class="mb-3">Perfil</h1>
+              <hr class="my-4">
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="nombre" class="form-label">Primer nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre">
+                </div> 
+                <div class="col-sm-6">
+                  <label for="segundoNombre" class="form-label">Segundo nombre</label>
+                  <input type="text" class="form-control" id="segundoNombre" name="segundoNombre">
+                </div>
+                <div class="col-sm-6">
+                  <label for="apellido" class="form-label">Primer apellido</label>
+                  <input type="text" class="form-control" id="apellido" name="apellido">
+                </div> 
+                <div class="col-sm-6">
+                  <label for="segundoApellido" class="form-label">Segundo apellido</label>
+                  <input type="text" class="form-control" id="segundoApellido" name="segundoApellido">
+                </div> 
+                <div class="col-sm-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="col-sm-6">
+                  <label for="imagen" class="form-label">Imagen</label>
+                  <input type="file" class="form-control" id="iamgen" name="imagen" accept=".jpeg">
+                </div> 
+
+                <div class="col-sm-12">
+                  <label for="telefono" class="form-label">Teléfono de contacto</label>
+                  <input type="number" class="form-control" id="telefono" name="telefono">
+                </div> 
+
+
+                <button type="submit" class="btn btn-primary mt-4"> Guardar cambios</button>
+              </div>
+            </div>
+          </form>
+        </main>
       </div>
-    </div>
-  </main>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">

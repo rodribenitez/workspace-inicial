@@ -49,7 +49,6 @@ function showCarts(array){
 }
 
 function eliminar(posicion){
-    console.log(productsCarrito);
     productsCarrito.splice(posicion,1);
     localStorage.setItem("newProductCart", JSON.stringify(productsCarrito))
     showCarts(productsCarrito)
@@ -89,17 +88,21 @@ function sumatoria() {
 }
 
 // inputs 
+
+const inputs = document.querySelectorAll("input");
+
+
 const tipoCredito = document.getElementById("credito");
 const tipoBancario = document.getElementById("transferencia");
 
 const numeroTarjeta = document.getElementById("numeroTarjeta");
 const codigoSeguridad = document.getElementById("codigoSeguridad");
 const vencimiento = document.getElementById("vencimiento");
+const numeroCuenta= document.getElementById("inputBancario")
 
 const calle = document.getElementById("calle");
 const numeroCalle = document.getElementById("numeroCalle");
 const esquina = document.getElementById("esquina")
-
 
 function showAlertSuccess() {
     document.getElementById("alert-success").classList.add("show");
@@ -110,23 +113,78 @@ function showAlertError() {
 } ;
 
 
+
+
 function validar() {
-    if (calle.value === "" || esquina.value === "" || numeroCalle.value === "") {
+
+    if ((calle.value !== "" && esquina.value !== "" && numeroCalle.value !== "") && (tipoCredito.checked || tipoBancario.checked)) {
+        showAlertSuccess();
+        calle.value = "";
+        numeroCalle.value = "";
+        esquina.value = "";
+        
+        tipoCredito.checked = false;
+        numeroTarjeta.value="";
+        numeroTarjeta.disabled = false;
+
+        codigoSeguridad.value="";
+        codigoSeguridad.disabled=false;
+
+        vencimiento.value="";
+        vencimiento.disabled=false;
+
+        tipoBancario.checked= false;
+
+        numeroCuenta.value="";
+        numeroCuenta.disabled = false;
+
+        document.getElementById("tipoDePago").innerText= "No ha seleccionado";
+        document.getElementById("tipoDePago").style.color = "black";
+
+
+        calle.classList.remove("is-invalid");
+        esquina.classList.remove("is-invalid");
+        numeroCalle.classList.remove("is-invalid");
+
+        inputs.forEach(input =>{
+            
+                input.classList.remove("is-valid");
+            })
+        
+
+    } else{
+        showAlertError();
+        document.getElementById("tipoDePago").style.color = "red"
         calle.classList.toggle("is-invalid");
         esquina.classList.toggle("is-invalid");
-        numeroCalle.classList.toggle("is-invalid")
-    } 
-        if (!tipoCredito.checked) {
-            if (numeroTarjeta.value === "" || codigoSeguridad.value === "" || vencimiento.value === "" ) {
-                alert("Ingresa datos de la tarjeta");
-                document.getElementById("tipoDePago").style.color = "red"
-            } else{
-                showAlertSuccess();
-                calle.value = "";
-                numeroCalle.value = "";
-                esquina.value = "";
-            }
-        }
+        numeroCalle.classList.toggle("is-invalid");
+    }
+
+
+
+    // if (calle.value === "" || esquina.value === "" || numeroCalle.value === "" || numeroTarjeta.value === "" || codigoSeguridad.value ==="" || vencimiento.value ==="" ) {
+    //     calle.classList.toggle("is-invalid");
+    //     esquina.classList.toggle("is-invalid");
+    //     numeroCalle.classList.toggle("is-invalid")
+    // } 
+    //     if (tipoCredito.checked) {
+    //         if (numeroTarjeta.value === "" || codigoSeguridad.value === "" || vencimiento.value === "" ) {
+    //             alert("Debe selecionar una forma de pago");
+    //             // numeroTarjeta.classList.toggle("is-invalid");
+    //             // codigoSeguridad.classList.toggle("is-invalid");
+    //             // vencimiento.classList.toggle("is-invalid");
+
+                
+    //         } else{
+                
+    //             showAlertSuccess();
+    //             calle.value = "";
+    //             numeroCalle.value = "";
+    //             esquina.value = "";
+    //         }
+    //     } else{
+    //         document.getElementById("tipoDePago").style.color = "red"
+    //     }
     }
 
 
@@ -142,7 +200,7 @@ tipoCredito.addEventListener("click",()=>{
     if (document.getElementById("tipoDePago").style.color = "red") {
         
         document.getElementById("tipoDePago").innerText= "Tarjeta de Credito"
-        document.getElementById("tipoDePago").style.color = "white"
+        document.getElementById("tipoDePago").style.color = "black"
     }
     
 })
@@ -161,6 +219,8 @@ tipoBancario.addEventListener("click",()=>{
 
 
 document.addEventListener("DOMContentLoaded", function(e){
+
+
     getJSONData(CART_INFO_URL + "25801.json").then(function(resultObj){
         if (resultObj.status === "ok")
         {
@@ -184,8 +244,13 @@ document.addEventListener("DOMContentLoaded", function(e){
             sumatoria();
         })
        
-    }
-    
+    }   
+    inputs.forEach(input =>{
+        input.addEventListener("change", ()=>{
+            input.classList.toggle("is-valid");
+        })
+    })
+
     document.getElementById("btnComprar").addEventListener("click",() =>{
         validar();
         
