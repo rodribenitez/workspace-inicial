@@ -40,11 +40,16 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorías</a>
+            <ul class="submenu" id="sub_menu">
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="my-profile.html" id="perfil"></a>
+            <ul class="submenu" id="subMenu">
+            </ul>
           </li>
         </ul>
       </div>
@@ -52,7 +57,7 @@
   </nav>
   <div class="container">
   <main>
-          <form action="" class="row mt-4">
+          <form action="" class="row mt-4" id="formulario">
             <div class="col">
               <h1 class="mb-3">Perfil</h1>
               <hr class="my-4">
@@ -82,13 +87,15 @@
                   <input type="file" class="form-control" id="iamgen" name="imagen" accept=".jpeg">
                 </div> 
 
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                   <label for="telefono" class="form-label">Teléfono de contacto</label>
                   <input type="number" class="form-control" id="telefono" name="telefono">
                 </div> 
 
+                  <div class="col-sm-8 .text-center">
 
-                <button type="submit" class="btn btn-primary mt-4"> Guardar cambios</button>
+                    <button type="submit" class="btn btn-primary mt-4 " id="btnGuardar"> Guardar cambios</button>
+                  </div>
               </div>
             </div>
           </form>
